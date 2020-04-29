@@ -1,4 +1,4 @@
-#JanuszStock
+# JanuszStock
 
 ## Purpose
 Mark stocks supported by 
