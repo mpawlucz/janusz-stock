@@ -10,7 +10,7 @@ on these websites:
 - Chrome -> Manage Extensions -> Enable developer mode
 - Load unpacked
 - (point to root directory of this project)
-- Navigate to website (app.webull.com) 
+- Navigate to website (https://app.webull.com) 
 
 ## todo
 - should mark also on page load (currently does only mark when mutation occurs - on sort table, on scroll)
