@@ -22,13 +22,13 @@
     "*://*/*"
   ],
   "background": {
-    "scripts": ["3rd-party/jquery-3.2.1.min.js", "bgp.js"],
+    "scripts": ["3rd-party/jquery-3.2.1.min.js", "3rd-party/jquery.csv.min.js", "bgp.js"],
     "persistent": true
   },
   "content_scripts": [
     {
       "matches": [
-        "https://app.webull.com/market/region/*"
+        "https://app.webull.com/*"
       ],
       "js": ["3rd-party/jquery-3.2.1.min.js", "content_webull.js"]
     }
