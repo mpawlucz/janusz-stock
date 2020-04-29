@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "minimum_chrome_version": "49",
+
+  "name": "JanuszStock",
+  "description": "",
+  "version": "1.0.0",
+  "icons": {
+    "64": "media/js.png"
+  },
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_title": "JanuszStock"
+  },
+  "permissions": [
+    "storage",
+    "webNavigation",
+    "activeTab",
+    "contextMenus",
+    "tabs",
+    "cookies",
+    "*://*/*"
+  ],
+  "background": {
+    "scripts": ["3rd-party/jquery-3.2.1.min.js", "bgp.js"],
+    "persistent": true
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://app.webull.com/market/region/*"
+      ],
+      "js": ["3rd-party/jquery-3.2.1.min.js", "content_webull.js"]
+    }
+  ]
+}
