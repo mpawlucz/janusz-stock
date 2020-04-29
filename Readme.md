@@ -1,8 +1,10 @@
 # JanuszStock
 
-## Purpose
+## purpose
 Mark stocks supported by 
-[Revolut](https://revolut.com/referral/michahqr) 
+* [Revolut](https://revolut.com/referral/michahqr)
+* Trading212.com
+ 
 on these websites:
 - [webull.com](https://app.webull.com/market/region/6/all)
 
@@ -14,7 +16,6 @@ on these websites:
 
 ## todo
 - should mark also on page load (currently does only mark when mutation occurs - on sort table, on scroll)
-- support multiple providers (brokers)
 
 ## credits
 https://github.com/mpawlucz/

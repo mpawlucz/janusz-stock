@@ -1,6 +1,7 @@
 let APP = {
     providers: {
-        revolut: {}
+        revolut: {},
+        trading212: {}
     }
 };
 
@@ -17,7 +18,26 @@ $.ajax({
                 name: item[1]
             };
         }
-        // console.log(APP.revolut);
+    }
+});
+
+$.ajax({
+    type: "GET",
+    url: "https://mpawlucz.github.io/revolut-stocks-list-raw/trading212-stocks-list.csv",
+    dataType: "text",
+    success: function(responseText){
+        let data = $.csv.toArrays(responseText);
+        for (let i=1; i<data.length; ++i){ // skip first line (csv headers)
+            let item = data[i];
+            let marketName = item[5].trim();
+            let allowedMarkets = {"NYSE": 1, "NASDAQ": 1};
+            if (allowedMarkets.hasOwnProperty(marketName)){
+                APP.providers.trading212[item[0].toUpperCase()] = {
+                    ticker: item[0].toUpperCase(),
+                    name: item[1]
+                };
+            }
+        }
     }
 });
 
