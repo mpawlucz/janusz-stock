@@ -13,7 +13,6 @@
             alert('error: ' + chrome.runtime.lastError);
             return;
         }
-        console.log(response.providers);
         APP.providers = response.providers;
     });
 
