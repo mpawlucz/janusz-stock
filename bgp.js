@@ -41,11 +41,58 @@ $.ajax({
     }
 });
 
+function findTickerInfo(ticker, callback) {
+    $.ajax({
+        type: "GET",
+        url: "https://infoapi.webullbroker.com/api/search/tickerSearchV5?keys=" + ticker + "&hasNumber=0&clientOrder=0&queryNumber=30",
+        dataType: "text",
+        success: function (responseText) {
+            let responseJson = JSON.parse(responseText);
+            let mergedInfo = [].concat(responseJson.stockAndEtfs).concat(responseJson.others);
+            let found = mergedInfo.find(element => element.symbol === ticker);
+            if (found){
+                if (typeof callback === "function"){
+                    callback(found);
+                }
+            }
+        }
+    });
+}
+
+function getTickerChartData(tickerId, callback) {
+    $.ajax({
+        type: "GET",
+        url: "https://quoteapi.webullbroker.com/api/quote/tickerChartDatas/v5/"+tickerId+"?type=d1&count=800",
+        dataType: "text",
+        success: function (responseText) {
+            let responseJson = JSON.parse(responseText);
+            if (responseJson.length > 0){
+                if (typeof callback === "function"){
+                    callback(responseJson[0].data);
+                    // todo validate response tickerId
+                }
+            }
+        }
+    });
+}
+
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     if (request.type === "content-bgp"){
         if (request.action === "getProviders"){
             sendResponse({response: "bgp-content", providers: APP.providers});
             return;
+        }
+        if (request.action === "getTickerInfo"){
+            findTickerInfo(request.ticker, function(tickerInfo){
+                sendResponse({response: "bgp-content", tickerInfo: tickerInfo});
+            });
+            return true; // true => async
+        }
+        if (request.action === "getTickerChartData"){
+            getTickerChartData(request.tickerId, function(tickerChartData){
+                sendResponse({response: "bgp-content", tickerChartData: tickerChartData});
+            });
+            return true;
         }
     }
 });
