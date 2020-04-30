@@ -40,23 +40,27 @@
         return $revoMark;
     }
 
+    let markSupport = function($td){
+        if ($td.attr('janusz-stock') != "1"){
+            let ticker = $td.text().trim();
+            if (isRevolutSupport(ticker)){
+                $td.attr('janusz-stock', "1");
+                $td.append(createRevoMark());
+            }
+            if (isTrading212Support(ticker)){
+                $td.attr('janusz-stock', "1");
+                $td.append(createTrading212Mark());
+            }
+        }
+    };
+
     let observer = new MutationObserver(function (mutationsList) {
         mutationsList.forEach(mutation => {
             if(mutation.type == 'childList') {
                 Array.prototype.forEach.call(mutation.target.children, function(child) {
                     if (child.tagName == "TR"){
-                        let $td = $(child).find("td:nth-child(2)");
-                        if ($td.attr('janusz-stock') != "1"){
-                            let ticker = $td.text().trim();
-                            if (isRevolutSupport(ticker)){
-                                $td.attr('janusz-stock', "1");
-                                $td.append(createRevoMark());
-                            }
-                            if (isTrading212Support(ticker)){
-                                $td.attr('janusz-stock', "1");
-                                $td.append(createTrading212Mark());
-                            }
-                        }
+                        markSupport($(child).find("td:nth-child(2)"));
+                        markSupport($(child).find("td:nth-child(3)"));
                     }
                 });
             }
