@@ -32,7 +32,8 @@
         $(document).find('head').append("<style>" +
             ".janusz-revo {color: yellow} .janusz-trading212 {color:lightblue}" +
             ".janusz-logo {color: #02CEEC; margin-top: 10px;}" +
-            ".janusz-tooltip-row {color: #8A8D91; margin-top: 10px;}" +
+            ".janusz-tooltip {color: #8A8D91;}" +
+            ".janusz-tooltip td {padding: 2px; text-align: right;}" +
             ".janusz-tooltip-price {color: #EEEEEE;}" +
             ".janusz-red.janusz-red {color: #E04036;}" +
             ".janusz-green.janusz-green {color: #00DB86;}" +
@@ -170,23 +171,30 @@
             if ($priceOriginalContainer.attr('janusz-stock-tooltip') != currentStockTicker){
                 $priceOriginalContainer.attr('janusz-stock-tooltip', currentStockTicker);
                 $('.janusz-logo').remove();
-                $('.janusz-tooltip-row').remove();
+                $('.janusz-tooltip').remove();
                 $priceOriginalContainer.append("<div class='janusz-logo'>JanuszStock: "+currentStockTicker+"</div>");
-                $priceOriginalContainer.append("<div class='janusz-tooltip-row'>Close 2020.01.15: " +
-                    "<span class='janusz-tooltip-price janusz-tooltip-price-1-close'>...</span> " +
-                    "<span class='janusz-tooltip-price janusz-tooltip-price-1-change'>...</span> " +
-                    "<span class='janusz-tooltip-price janusz-tooltip-price-1-change-percent'>...</span> " +
-                    "</div>");
-                $priceOriginalContainer.append("<div class='janusz-tooltip-row'>Close 2020.03.18: " +
-                    "<span class='janusz-tooltip-price janusz-tooltip-price-2-close'>...</span> " +
-                    "<span class='janusz-tooltip-price janusz-tooltip-price-2-change'>...</span> " +
-                    "<span class='janusz-tooltip-price janusz-tooltip-price-2-change-percent'>...</span> " +
-                    "</div>");
-                $priceOriginalContainer.append("<div class='janusz-tooltip-row'>Close 2020.04.03: " +
-                    "<span class='janusz-tooltip-price janusz-tooltip-price-3-close'>...</span> " +
-                    "<span class='janusz-tooltip-price janusz-tooltip-price-3-change'>...</span> " +
-                    "<span class='janusz-tooltip-price janusz-tooltip-price-3-change-percent'>...</span> " +
-                    "</div>");
+
+                let $referencePriceTable = $('<table class="janusz-tooltip"></table>');
+                $referencePriceTable.append("<tr>" +
+                    "<td>Close 2020.01.15:</td>" +
+                    "<td class='janusz-tooltip-price janusz-tooltip-price-1-close'>...</td>" +
+                    "<td class='janusz-tooltip-price janusz-tooltip-price-1-change'></td>" +
+                    "<td class='janusz-tooltip-price janusz-tooltip-price-1-change-percent'></td>" +
+                    "</tr>");
+                $referencePriceTable.append("<tr>" +
+                    "<td>Close 2020.03.18:</td>" +
+                    "<td class='janusz-tooltip-price janusz-tooltip-price-2-close'>...</td>" +
+                    "<td class='janusz-tooltip-price janusz-tooltip-price-2-change'></td>" +
+                    "<td class='janusz-tooltip-price janusz-tooltip-price-2-change-percent'></td>" +
+                    "</tr>");
+                $referencePriceTable.append("<tr>" +
+                    "<td>Close 2020.04.03:</td>" +
+                    "<td class='janusz-tooltip-price janusz-tooltip-price-3-close'>...</td>" +
+                    "<td class='janusz-tooltip-price janusz-tooltip-price-3-change'></td>" +
+                    "<td class='janusz-tooltip-price janusz-tooltip-price-3-change-percent'></td>" +
+                    "</tr>");
+                $priceOriginalContainer.append($referencePriceTable);
+
                 if (currentStockTicker.length > 0){
                     loadCustomReferencePrice(currentStockTicker, $price.text());
                 }
