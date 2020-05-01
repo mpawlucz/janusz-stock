@@ -115,24 +115,21 @@
 
     function loadCustomReferencePrice(ticker){
         findTickerInfo(ticker, function(tickerInfo){
-            console.log('tickerInfo', tickerInfo);
             getTickerChartData(tickerInfo.tickerId, function (tickerChartData) {
-                // console.log('tickerChartData', tickerChartData);
                 for (let i=0; i<tickerChartData.length; ++i){
                     let candleString = tickerChartData[i];
                     let candleArray = candleString.split(",");
+                    let candleOpen = candleArray[1];
+                    let candleClose = candleArray[2];
                     let timestamp = candleArray[0];
-                    if (timestamp.substr(0,5) == "1584504000".substr(0,5)){
-                        let candleOpen = candleArray[1];
-                        let candleClose = candleArray[2];
-                        $("[janusz-stock-tooltip="+ticker+"] .janusz-tooltip-price-1-open").text(candleOpen);
+                    if (timestamp.substr(0,5) == "1579064400".substr(0,5)){
                         $("[janusz-stock-tooltip="+ticker+"] .janusz-tooltip-price-1-close").text(candleClose);
                     }
-                    if (timestamp.substr(0,5) == "1585022400".substr(0,5)){
-                        let candleOpen = candleArray[1];
-                        let candleClose = candleArray[2];
-                        $("[janusz-stock-tooltip="+ticker+"] .janusz-tooltip-price-2-open").text(candleOpen);
+                    if (timestamp.substr(0,5) == "1584504000".substr(0,5)){
                         $("[janusz-stock-tooltip="+ticker+"] .janusz-tooltip-price-2-close").text(candleClose);
+                    }
+                    if (timestamp.substr(0,5) == "1585886400".substr(0,5)){
+                        $("[janusz-stock-tooltip="+ticker+"] .janusz-tooltip-price-3-close").text(candleClose);
                     }
                 }
             });
@@ -150,17 +147,14 @@
                 $('.janusz-logo').remove();
                 $('.janusz-tooltip-row').remove();
                 $priceOriginalContainer.append("<div class='janusz-logo'>JanuszStock: "+currentStockTicker+"</div>");
-                $priceOriginalContainer.append("<div class='janusz-tooltip-row'>Reference [2020.03.18] open: " +
-                    "<span class='janusz-tooltip-price janusz-tooltip-price-1-open'>...</span>" +
-                "</div>");
-                $priceOriginalContainer.append("<div class='janusz-tooltip-row'>Reference [2020.03.18] close: " +
+                $priceOriginalContainer.append("<div class='janusz-tooltip-row'>Close 2020.01.15: " +
                     "<span class='janusz-tooltip-price janusz-tooltip-price-1-close'>...</span>" +
                     "</div>");
-                $priceOriginalContainer.append("<div class='janusz-tooltip-row'>Reference [2020.03.23] open: " +
-                    "<span class='janusz-tooltip-price janusz-tooltip-price-2-open'>...</span>" +
-                    "</div>");
-                $priceOriginalContainer.append("<div class='janusz-tooltip-row'>Reference [2020.03.23] close: " +
+                $priceOriginalContainer.append("<div class='janusz-tooltip-row'>Close 2020.03.18: " +
                     "<span class='janusz-tooltip-price janusz-tooltip-price-2-close'>...</span>" +
+                    "</div>");
+                $priceOriginalContainer.append("<div class='janusz-tooltip-row'>Close 2020.04.03: " +
+                    "<span class='janusz-tooltip-price janusz-tooltip-price-3-close'>...</span>" +
                     "</div>");
                 if (currentStockTicker.length > 0){
                     loadCustomReferencePrice(currentStockTicker);
