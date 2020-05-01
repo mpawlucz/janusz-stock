@@ -34,6 +34,9 @@
             ".janusz-logo {color: #02CEEC; margin-top: 10px;}" +
             ".janusz-tooltip-row {color: #8A8D91; margin-top: 10px;}" +
             ".janusz-tooltip-price {color: #EEEEEE;}" +
+            ".janusz-red.janusz-red {color: #E04036;}" +
+            ".janusz-green.janusz-green {color: #00DB86;}" +
+            ".janusz-white.janusz-white {color: #EEEEEE;}" +
             "</style>");
 
         function createRevoMark() {
@@ -113,7 +116,19 @@
         });
     }
 
-    function loadCustomReferencePrice(ticker){
+    function roundTo2Decimal(number){
+        return Math.round((number + Number.EPSILON) * 100) / 100;
+    }
+
+    function setChangeAndColor($element, priceChange, priceSignum) {
+        $element.text((priceSignum>0 ? '+' : '') + priceChange);
+        $element.removeClass("janusz-red");
+        $element.removeClass("janusz-green");
+        $element.addClass(priceSignum>0 ? "janusz-green" : (priceSignum<0 ? "janusz-red" : "janusz-white") );
+    }
+
+    function loadCustomReferencePrice(ticker, currentPrice){
+        currentPrice = parseFloat(currentPrice);
         findTickerInfo(ticker, function(tickerInfo){
             getTickerChartData(tickerInfo.tickerId, function (tickerChartData) {
                 for (let i=0; i<tickerChartData.length; ++i){
@@ -121,15 +136,24 @@
                     let candleArray = candleString.split(",");
                     let candleOpen = candleArray[1];
                     let candleClose = candleArray[2];
+                    let candleCloseFloat = parseFloat(candleClose);
+                    let priceChange = currentPrice - candleCloseFloat;
+                    let priceChangePercent = (priceChange/candleCloseFloat)*100;
                     let timestamp = candleArray[0];
                     if (timestamp.substr(0,5) == "1579064400".substr(0,5)){
                         $("[janusz-stock-tooltip="+ticker+"] .janusz-tooltip-price-1-close").text(candleClose);
+                        setChangeAndColor($("[janusz-stock-tooltip=" + ticker + "] .janusz-tooltip-price-1-change"), roundTo2Decimal(priceChange), roundTo2Decimal(priceChange));
+                        setChangeAndColor($("[janusz-stock-tooltip=" + ticker + "] .janusz-tooltip-price-1-change-percent"), roundTo2Decimal(priceChangePercent)+'%', roundTo2Decimal(priceChangePercent));
                     }
                     if (timestamp.substr(0,5) == "1584504000".substr(0,5)){
                         $("[janusz-stock-tooltip="+ticker+"] .janusz-tooltip-price-2-close").text(candleClose);
+                        setChangeAndColor($("[janusz-stock-tooltip=" + ticker + "] .janusz-tooltip-price-2-change"), roundTo2Decimal(priceChange), roundTo2Decimal(priceChange));
+                        setChangeAndColor($("[janusz-stock-tooltip=" + ticker + "] .janusz-tooltip-price-2-change-percent"), roundTo2Decimal(priceChangePercent)+'%', roundTo2Decimal(priceChangePercent));
                     }
                     if (timestamp.substr(0,5) == "1585886400".substr(0,5)){
                         $("[janusz-stock-tooltip="+ticker+"] .janusz-tooltip-price-3-close").text(candleClose);
+                        setChangeAndColor($("[janusz-stock-tooltip=" + ticker + "] .janusz-tooltip-price-3-change"), roundTo2Decimal(priceChange), roundTo2Decimal(priceChange));
+                        setChangeAndColor($("[janusz-stock-tooltip=" + ticker + "] .janusz-tooltip-price-3-change-percent"), roundTo2Decimal(priceChangePercent)+'%', roundTo2Decimal(priceChangePercent));
                     }
                 }
             });
@@ -139,6 +163,7 @@
     function enableCustomPriceToolbar(){
         function insertCustomPriceTooltip(){
             let $tickerDiv = $('#rightTabWrap .tit');
+            let $price = $('#rightTabWrap .price');
             let $priceOriginalContainer = $tickerDiv.parent().parent().parent();
             let currentStockTicker = extractNoNestedText($tickerDiv[0]).trim();
             console.log(currentStockTicker);
@@ -148,16 +173,22 @@
                 $('.janusz-tooltip-row').remove();
                 $priceOriginalContainer.append("<div class='janusz-logo'>JanuszStock: "+currentStockTicker+"</div>");
                 $priceOriginalContainer.append("<div class='janusz-tooltip-row'>Close 2020.01.15: " +
-                    "<span class='janusz-tooltip-price janusz-tooltip-price-1-close'>...</span>" +
+                    "<span class='janusz-tooltip-price janusz-tooltip-price-1-close'>...</span> " +
+                    "<span class='janusz-tooltip-price janusz-tooltip-price-1-change'>...</span> " +
+                    "<span class='janusz-tooltip-price janusz-tooltip-price-1-change-percent'>...</span> " +
                     "</div>");
                 $priceOriginalContainer.append("<div class='janusz-tooltip-row'>Close 2020.03.18: " +
-                    "<span class='janusz-tooltip-price janusz-tooltip-price-2-close'>...</span>" +
+                    "<span class='janusz-tooltip-price janusz-tooltip-price-2-close'>...</span> " +
+                    "<span class='janusz-tooltip-price janusz-tooltip-price-2-change'>...</span> " +
+                    "<span class='janusz-tooltip-price janusz-tooltip-price-2-change-percent'>...</span> " +
                     "</div>");
                 $priceOriginalContainer.append("<div class='janusz-tooltip-row'>Close 2020.04.03: " +
-                    "<span class='janusz-tooltip-price janusz-tooltip-price-3-close'>...</span>" +
+                    "<span class='janusz-tooltip-price janusz-tooltip-price-3-close'>...</span> " +
+                    "<span class='janusz-tooltip-price janusz-tooltip-price-3-change'>...</span> " +
+                    "<span class='janusz-tooltip-price janusz-tooltip-price-3-change-percent'>...</span> " +
                     "</div>");
                 if (currentStockTicker.length > 0){
-                    loadCustomReferencePrice(currentStockTicker);
+                    loadCustomReferencePrice(currentStockTicker, $price.text());
                 }
             }
         }
