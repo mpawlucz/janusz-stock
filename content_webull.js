@@ -32,8 +32,9 @@
         $(document).find('head').append("<style>" +
             ".janusz-revo {color: yellow} .janusz-trading212 {color:lightblue}" +
             ".janusz-logo {color: #02CEEC; margin-top: 10px;}" +
-            ".janusz-tooltip {color: #8A8D91;}" +
-            ".janusz-tooltip td {padding: 2px; text-align: right;}" +
+            ".janusz-ticker {color: #8A8D91;}" +
+            ".janusz-tooltip {color: #8A8D91; margin-top: 3px;}" +
+            ".janusz-tooltip td {padding: 3px 2px; text-align: right;}" +
             ".janusz-tooltip-price {color: #EEEEEE;}" +
             ".janusz-red.janusz-red {color: #E04036;}" +
             ".janusz-green.janusz-green {color: #00DB86;}" +
@@ -172,7 +173,7 @@
                 $priceOriginalContainer.attr('janusz-stock-tooltip', currentStockTicker);
                 $('.janusz-logo').remove();
                 $('.janusz-tooltip').remove();
-                $priceOriginalContainer.append("<div class='janusz-logo'>JanuszStock: "+currentStockTicker+"</div>");
+                $priceOriginalContainer.append("<div class='janusz-logo'>JanuszStock: <span class='janusz-ticker'>"+currentStockTicker+"</span></div>");
 
                 let $referencePriceTable = $('<table class="janusz-tooltip"></table>');
                 $referencePriceTable.append("<tr>" +
