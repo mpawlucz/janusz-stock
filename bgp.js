@@ -2,7 +2,9 @@ let APP = {
     providers: {
         revolut: {},
         trading212: {}
-    }
+    },
+    tickerIdByTicker: {},
+    tickerChartDataByTickerId: {}
 };
 
 $.ajax({
@@ -42,6 +44,10 @@ $.ajax({
 });
 
 function findTickerInfo(ticker, callback) {
+    if (APP.tickerIdByTicker.hasOwnProperty(ticker)){
+        callback(APP.tickerIdByTicker[ticker]);
+        return;
+    }
     $.ajax({
         type: "GET",
         url: "https://infoapi.webullbroker.com/api/search/tickerSearchV5?keys=" + ticker + "&hasNumber=0&clientOrder=0&queryNumber=30",
@@ -52,6 +58,7 @@ function findTickerInfo(ticker, callback) {
             let found = mergedInfo.find(element => element.symbol === ticker);
             if (found){
                 if (typeof callback === "function"){
+                    APP.tickerIdByTicker[ticker] = found;
                     callback(found);
                 }
             }
@@ -60,6 +67,10 @@ function findTickerInfo(ticker, callback) {
 }
 
 function getTickerChartData(tickerId, callback) {
+    if (APP.tickerChartDataByTickerId.hasOwnProperty(tickerId)){
+        callback(APP.tickerChartDataByTickerId[tickerId]);
+        return;
+    }
     $.ajax({
         type: "GET",
         url: "https://quoteapi.webullbroker.com/api/quote/tickerChartDatas/v5/"+tickerId+"?type=d1&count=800",
@@ -68,7 +79,9 @@ function getTickerChartData(tickerId, callback) {
             let responseJson = JSON.parse(responseText);
             if (responseJson.length > 0){
                 if (typeof callback === "function"){
-                    callback(responseJson[0].data);
+                    let data = responseJson[0].data;
+                    APP.tickerChartDataByTickerId[tickerId] = data;
+                    callback(data);
                     // todo validate response tickerId
                 }
             }

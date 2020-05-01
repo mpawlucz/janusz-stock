@@ -90,8 +90,6 @@
     }
 
     function findTickerInfo(ticker, callback) {
-        console.log('findTickerInfo');
-
         chrome.runtime.sendMessage({type: "content-bgp", action:'getTickerInfo', ticker: ticker}, function(response){
             if (typeof response == 'undefined'){
                 alert('error: ' + chrome.runtime.lastError);
