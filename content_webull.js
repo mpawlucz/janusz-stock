@@ -197,7 +197,7 @@
                 $priceOriginalContainer.append($referencePriceTable);
 
                 if (currentStockTicker.length > 0){
-                    loadCustomReferencePrice(currentStockTicker, $price.text());
+                    loadCustomReferencePrice(currentStockTicker, $price.text().replace(",", ""));
                 }
             }
         }
