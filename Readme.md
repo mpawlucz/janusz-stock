@@ -8,6 +8,9 @@ Mark stocks supported by
 on this website:
 - [webull.com](https://app.webull.com/market/region/6/all)
 
+## feature preview
+![feature preview image](https://mpawlucz.github.io/janusz-stock/feature.png)
+
 ## usage
 - Chrome -> Manage Extensions -> Enable developer mode
 - Load unpacked
