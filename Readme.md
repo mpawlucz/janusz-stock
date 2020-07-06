@@ -2,10 +2,10 @@
 
 ## purpose
 Mark stocks supported by 
-* [Revolut](https://revolut.com/referral/michahqr)
-* Trading212.com
+* revolut.com
+* trading212.com
  
-on these websites:
+on this website:
 - [webull.com](https://app.webull.com/market/region/6/all)
 
 ## usage

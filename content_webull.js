@@ -142,6 +142,8 @@
                     let priceChange = currentPrice - candleCloseFloat;
                     let priceChangePercent = (priceChange/candleCloseFloat)*100;
                     let timestamp = candleArray[0];
+
+                    // todo externalize configuration of timestamps
                     if (timestamp.substr(0,5) == "1579064400".substr(0,5)){
                         $("[janusz-stock-tooltip="+ticker+"] .janusz-tooltip-price-1-close").text(candleClose);
                         setChangeAndColor($("[janusz-stock-tooltip=" + ticker + "] .janusz-tooltip-price-1-change"), roundTo2Decimal(priceChange), roundTo2Decimal(priceChange));
@@ -244,6 +246,8 @@
     }
 
     enableSupportMarker();
-    enableCustomPriceToolbar();
+
+    // todo make toolbar price dates customizable
+    // enableCustomPriceToolbar();
 
 })(window);
