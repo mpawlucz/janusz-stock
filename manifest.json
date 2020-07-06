@@ -13,13 +13,7 @@
     "default_title": "JanuszStock"
   },
   "permissions": [
-    "storage",
-    "webNavigation",
-    "activeTab",
-    "contextMenus",
-    "tabs",
-    "cookies",
-    "*://*/*"
+    "https://app.webull.com/*"
   ],
   "background": {
     "scripts": ["3rd-party/jquery-3.2.1.min.js", "3rd-party/jquery.csv.min.js", "bgp.js"],
