@@ -3,10 +3,13 @@
   "minimum_chrome_version": "49",
 
   "name": "JanuszStock",
-  "description": "Extension places small marks next to stocks supported by Revolut on listings from Webull.com. This way you can make use of great data/analytics tools provided by Webull and still trade your stocks on Revolut.",
+  "description": "Extension places marks next to stocks supported by Revolut on listings from Webull.com.",
   "version": "1.0.0",
   "icons": {
-    "64": "media/js.png"
+    "16": "media/js16.png",
+    "48": "media/js48.png",
+    "64": "media/js.png",
+    "128": "media/js128.png"
   },
   "browser_action": {
     "default_popup": "popup.html",
