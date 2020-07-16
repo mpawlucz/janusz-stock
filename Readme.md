@@ -11,7 +11,11 @@ on this website:
 ## feature preview
 ![feature preview image](https://mpawlucz.github.io/janusz-stock/feature.png)
 
-## usage
+## usage: from store
+https://chrome.google.com/webstore/detail/januszstock/gdfgnmaimdkfcemckghebebbnbdjigeo
+
+## usage: dev mode from source
+- clone this repository
 - Chrome -> Manage Extensions -> Enable developer mode
 - Load unpacked
 - (point to root directory of this project)
