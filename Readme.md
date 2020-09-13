@@ -8,21 +8,24 @@ Mark stocks supported by
 on this website:
 - [webull.com](https://app.webull.com/market/region/6/all)
 
-## feature preview
+## Feature preview
 ![feature preview image](https://mpawlucz.github.io/janusz-stock/feature.png)
 
-## usage: from store
-https://chrome.google.com/webstore/detail/januszstock/gdfgnmaimdkfcemckghebebbnbdjigeo
+## Install from extension store
+| Browser| |
+| ------------- |:-------------|
+|Chrome|https://chrome.google.com/webstore/detail/januszstock/gdfgnmaimdkfcemckghebebbnbdjigeo|
+|Firefox|https://addons.mozilla.org/en-US/firefox/addon/januszstock/|
 
-## usage: dev mode from source
-- clone this repository
+## Install from source
+- Clone this repository
 - Chrome -> Manage Extensions -> Enable developer mode
-- Load unpacked
-- (point to root directory of this project)
+- Click: Load unpacked
+- Point to root directory of this project
 - Navigate to website (https://app.webull.com) 
 
 ## todo
-- should mark also on page load (currently does only mark when mutation occurs - on sort table, on scroll)
+- should mark also on page load (currently does only mark when mutation occurs - on table sort, on scroll)
 
 ## credits
 https://github.com/mpawlucz/
